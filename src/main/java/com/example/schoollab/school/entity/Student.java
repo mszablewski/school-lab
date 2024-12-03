@@ -2,6 +2,7 @@ package com.example.schoollab.school.entity;
 
 import java.util.UUID;
 
+import com.example.schoollab.school.dto.StudentDto;
 import lombok.Builder;
 import lombok.Data;
 
@@ -32,5 +33,16 @@ public class Student {
     public String toString() {
         return "Student(id=" + this.getId() + ", name=" + this.getName() + ", surname=" + this.getSurname() + ", age=" + this.getAge() + ", group=" + this.getGroup() + ")";
     }
+
+    public StudentDto toStudentDto() {
+        return StudentDto.builder()
+                .id(this.getId())
+                .name(this.getName())
+                .surname(this.getSurname())
+                .age(this.getAge())
+                .groupName(this.getGroup().getName())
+                .build();
+    }
+
 
 }

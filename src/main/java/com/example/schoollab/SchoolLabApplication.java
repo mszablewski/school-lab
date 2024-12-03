@@ -6,8 +6,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @SpringBootApplication
@@ -73,7 +75,7 @@ public class SchoolLabApplication {
         groups.add(group2);
 
 //TASK2
-
+        System.out.println("TASK2");
         groups.forEach(group -> {
             System.out.println(group.toString());
             group.students.forEach(student -> {
@@ -82,13 +84,29 @@ public class SchoolLabApplication {
         });
 
 //TASK3
-        var allStudents = groups.stream().flatMap(group -> group.students.stream());
-
+        System.out.println("TASK3");
+        var allStudents = groups.stream().flatMap(group -> group.getStudents().stream()).toList();
         allStudents.forEach(student -> {
             System.out.println(student.toString());
         });
 
 //TASK4
+        System.out.println("TASK4");
+        var allStudentsFilteredByNameSortedBySurname = allStudents.stream().filter(student -> student.getName().equals("student 1")).sorted(Comparator.comparing(Student::getSurname)).toList();
+        allStudentsFilteredByNameSortedBySurname.forEach(student -> {
+            System.out.println(student.toString());
+        });
+
+//TASK5
+        System.out.println("TASK5");
+        var studentDtoList = allStudents.stream().map(Student::toStudentDto).sorted(Comparator.naturalOrder()).toList();
+
+        studentDtoList.forEach(student -> {
+            System.out.println(student.toString());
+        });
+
+//TASK6
+        System.out.println("TASK6");
 
     }
 }

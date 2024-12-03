@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Data
 @Builder
-public class StudentDto {
+public class StudentDto implements Comparable<StudentDto>{
     public UUID id;
     public String name;
     public String surname;
@@ -23,5 +23,15 @@ public class StudentDto {
         this.surname = surname;
         this.age = age;
         this.groupName = groupName;
+    }
+
+    @Override
+    public int compareTo(StudentDto other) {
+        // Example: Sort by name first, then surname if names are equal
+        int nameComparison = this.name.compareTo(other.name);
+        if (nameComparison != 0) {
+            return nameComparison;
+        }
+        return this.surname.compareTo(other.surname);
     }
 }
