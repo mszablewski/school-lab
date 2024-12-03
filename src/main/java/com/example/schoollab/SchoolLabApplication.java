@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 @SpringBootApplication
 public class SchoolLabApplication {
@@ -71,14 +72,23 @@ public class SchoolLabApplication {
         groups.add(group1);
         groups.add(group2);
 
+//TASK2
 
-//        TASK2
         groups.forEach(group -> {
             System.out.println(group.toString());
             group.students.forEach(student -> {
                 System.out.println(student.toString());
             });
         });
-    }
 
+//TASK3
+        var allStudents = groups.stream().flatMap(group -> group.students.stream());
+
+        allStudents.forEach(student -> {
+            System.out.println(student.toString());
+        });
+
+//TASK4
+
+    }
 }
