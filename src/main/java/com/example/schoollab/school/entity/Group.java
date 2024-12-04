@@ -10,12 +10,12 @@ import java.util.UUID;
 @Data
 @Builder
 public class Group implements Serializable {
-    public UUID id;
-    public String name;
-    public String description;
-    public List<Student> students;
+    private UUID id;
+    private String name;
+    private String description;
+    private List<Student> students;
 
-    public Group() {}
+    private Group() {}
 
     public Group(UUID id, String name, String description, List<Student> students) {
         this.id = id;
@@ -29,7 +29,7 @@ public class Group implements Serializable {
     }
 
     public void addStudent(Student student) {
-        student.group = this;
+        student.setGroup(this);
         students.add(student);
     }
 

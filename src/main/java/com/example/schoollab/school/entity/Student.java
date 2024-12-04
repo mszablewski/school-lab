@@ -10,13 +10,13 @@ import lombok.Data;
 @Data
 @Builder
 public class Student implements Serializable {
-    public UUID id;
-    public String name;
-    public String surname;
-    public Integer age;
-    public Group group;
+    private UUID id;
+    private String name;
+    private String surname;
+    private Integer age;
+    private Group group;
 
-    public Student() {}
+    private Student() {}
 
     public Student(UUID id, String name, String surname, Integer age, Group group) {
         this.id = id;

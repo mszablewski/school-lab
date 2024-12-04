@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ForkJoinPool;
 
 @SpringBootApplication
 public class SchoolLabApplication {
@@ -77,7 +78,7 @@ public class SchoolLabApplication {
         System.out.println("TASK2");
         groups.forEach(group -> {
             System.out.println(group.toString());
-            group.students.forEach(student -> {
+            group.getStudents().forEach(student -> {
                 System.out.println(student.toString());
             });
         });
@@ -116,13 +117,44 @@ public class SchoolLabApplication {
         }
 
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))) {
-            List<Group> readPeople = (List<Group>) ois.readObject();
-            System.out.println(readPeople.stream().flatMap(group -> group.getStudents().stream()).toList());
+            List<Group> readGroups = (List<Group>) ois.readObject();
+            readGroups.stream().forEach(
+                    group -> {
+                        System.out.println(group.toString());
+                        group.getStudents().stream().forEach(student -> {
+                            System.out.println(student.toString());
+                        });
+                    }
+            );
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
 
-//TASK7
+        System.out.println("GROUPS");
+        System.out.println(groups.size());
 
+//TASK7
+        System.out.println("TASK7");
+
+        ForkJoinPool threadPool = new ForkJoinPool(1);
+        try {
+            threadPool.submit(() -> {
+                groups.parallelStream().forEach(group -> {
+                    group.getStudents().forEach(student -> {
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            Thread.currentThread().interrupt();
+                            e.printStackTrace();
+                        }
+                        System.out.println(student);
+                    });
+                });
+            }).get();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            threadPool.shutdown();
+        }
     }
 }
