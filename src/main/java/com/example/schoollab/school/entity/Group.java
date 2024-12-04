@@ -3,12 +3,13 @@ package com.example.schoollab.school.entity;
 import lombok.Builder;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
 @Data
 @Builder
-public class Group {
+public class Group implements Serializable {
     public UUID id;
     public String name;
     public String description;

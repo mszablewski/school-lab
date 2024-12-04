@@ -27,7 +27,6 @@ public class StudentDto implements Comparable<StudentDto>{
 
     @Override
     public int compareTo(StudentDto other) {
-        // Example: Sort by name first, then surname if names are equal
         int nameComparison = this.name.compareTo(other.name);
         if (nameComparison != 0) {
             return nameComparison;

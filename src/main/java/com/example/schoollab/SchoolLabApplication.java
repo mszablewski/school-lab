@@ -5,12 +5,11 @@ import com.example.schoollab.school.entity.Group;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @SpringBootApplication
 public class SchoolLabApplication {
@@ -107,6 +106,23 @@ public class SchoolLabApplication {
 
 //TASK6
         System.out.println("TASK6");
+
+        String fileName = "people.dat";
+
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName))) {
+            oos.writeObject(groups);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))) {
+            List<Group> readPeople = (List<Group>) ois.readObject();
+            System.out.println(readPeople.stream().flatMap(group -> group.getStudents().stream()).toList());
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+//TASK7
 
     }
 }

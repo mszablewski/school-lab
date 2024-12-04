@@ -1,5 +1,6 @@
 package com.example.schoollab.school.entity;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 import com.example.schoollab.school.dto.StudentDto;
@@ -8,7 +9,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class Student {
+public class Student implements Serializable {
     public UUID id;
     public String name;
     public String surname;
