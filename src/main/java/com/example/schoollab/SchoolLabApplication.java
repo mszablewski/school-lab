@@ -136,7 +136,7 @@ public class SchoolLabApplication {
 //TASK7
         System.out.println("TASK7");
 
-        ForkJoinPool threadPool = new ForkJoinPool(1);
+        ForkJoinPool threadPool = new ForkJoinPool(2);
         try {
             threadPool.submit(() -> {
                 groups.parallelStream().forEach(group -> {
@@ -147,7 +147,7 @@ public class SchoolLabApplication {
                             Thread.currentThread().interrupt();
                             e.printStackTrace();
                         }
-                        System.out.println(student);
+                        System.out.println(student.toString());
                     });
                 });
             }).get();
