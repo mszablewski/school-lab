@@ -4,10 +4,7 @@ import java.io.Serializable;
 import java.util.UUID;
 
 import com.example.schoollab.school.dto.StudentDto;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 
@@ -23,6 +20,7 @@ public class Student implements Serializable {
     private Integer age;
 
     @ManyToOne
+    @JoinColumn(name = "group")
     private Group group;
 
     public Student() {}

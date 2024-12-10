@@ -14,14 +14,14 @@ import java.util.UUID;
 @Data
 @Builder
 @Entity
-@Table(name="groups")
+@Table(name = "groups")
 public class Group implements Serializable {
     @Id
     private UUID id;
     private String name;
     private String description;
 
-    @OneToMany(mappedBy = "profession", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "group", cascade = CascadeType.REMOVE)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private List<Student> students;
