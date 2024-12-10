@@ -1,30 +1,22 @@
-package com.example.schoollab.student.entity;
+package com.example.schoollab.school.entity;
 
 import java.io.Serializable;
 import java.util.UUID;
 
-import com.example.schoollab.group.entity.Group;
-import com.example.schoollab.student.dto.StudentDto;
-import jakarta.persistence.*;
+import com.example.schoollab.school.dto.StudentDto;
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
-@Entity
-@Table(name = "students")
 public class Student implements Serializable {
-    @Id
     private UUID id;
     private String name;
     private String surname;
     private Integer age;
-
-    @ManyToOne
-    @JoinColumn(name = "group")
     private Group group;
 
-    public Student() {}
+    private Student() {}
 
     public Student(UUID id, String name, String surname, Integer age, Group group) {
         this.id = id;

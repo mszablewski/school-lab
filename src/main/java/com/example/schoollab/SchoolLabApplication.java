@@ -1,7 +1,7 @@
 package com.example.schoollab;
 
-import com.example.schoollab.student.entity.Student;
-import com.example.schoollab.group.entity.Group;
+import com.example.schoollab.school.entity.Student;
+import com.example.schoollab.school.entity.Group;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
