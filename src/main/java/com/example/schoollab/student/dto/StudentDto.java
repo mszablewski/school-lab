@@ -1,6 +1,5 @@
-package com.example.schoollab.school.dto;
+package com.example.schoollab.student.dto;
 
-import com.example.schoollab.school.entity.Student;
 import lombok.Builder;
 import lombok.Data;
 
