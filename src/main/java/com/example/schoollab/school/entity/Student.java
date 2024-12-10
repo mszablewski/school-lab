@@ -20,17 +20,17 @@ public class Student implements Serializable {
     private Integer age;
 
     @ManyToOne
-    @JoinColumn(name = "group")
-    private Group group;
+    @JoinColumn(name = "class_collection")
+    private ClassCollection classCollection;
 
     public Student() {}
 
-    public Student(UUID id, String name, String surname, Integer age, Group group) {
+    public Student(UUID id, String name, String surname, Integer age, ClassCollection classCollection) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.age = age;
-        this.group = group;
+        this.classCollection = classCollection;
     }
 
     public boolean equalsByHashCode(Student student) {
@@ -39,7 +39,7 @@ public class Student implements Serializable {
 
     @Override
     public String toString() {
-        return "Student(id=" + this.getId() + ", name=" + this.getName() + ", surname=" + this.getSurname() + ", age=" + this.getAge() + ", group=" + this.getGroup() + ")";
+        return "Student(id=" + this.getId() + ", name=" + this.getName() + ", surname=" + this.getSurname() + ", age=" + this.getAge() + ", classCollection=" + this.getClassCollection() + ")";
     }
 
     public StudentDto toStudentDto() {
@@ -48,7 +48,7 @@ public class Student implements Serializable {
                 .name(this.getName())
                 .surname(this.getSurname())
                 .age(this.getAge())
-                .groupName(this.getGroup().getName())
+                .classCollectionName(this.getClassCollection().getName())
                 .build();
     }
 

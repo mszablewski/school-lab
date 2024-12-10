@@ -1,7 +1,7 @@
 package com.example.schoollab;
 
 import com.example.schoollab.school.entity.Student;
-import com.example.schoollab.school.entity.Group;
+import com.example.schoollab.school.entity.ClassCollection;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -18,16 +18,16 @@ public class SchoolLabApplication {
     public static void main(String[] args) {
         SpringApplication.run(SchoolLabApplication.class, args);
 
-        List<Group> groups = new ArrayList<>();
+        List<ClassCollection> classCollections = new ArrayList<>();
 
-        var group1 = Group.builder()
+        var group1 = ClassCollection.builder()
                 .id(UUID.randomUUID())
                 .name("group 1")
                 .description("group 1 description")
                 .students(new ArrayList<>())
                 .build();
 
-        var group2 = Group.builder()
+        var group2 = ClassCollection.builder()
                 .id(UUID.randomUUID())
                 .name("group 2")
                 .description("group 2 description")
@@ -39,7 +39,7 @@ public class SchoolLabApplication {
                 .name("student 1")
                 .surname("student 1 surname")
                 .age(20)
-                .group(group1)
+                .classCollection(group1)
                 .build();
 
         var student2 = Student.builder()
@@ -47,7 +47,7 @@ public class SchoolLabApplication {
                 .name("student 2")
                 .surname("student 2 surname")
                 .age(20)
-                .group(group1)
+                .classCollection(group1)
                 .build();
 
         var student3 = Student.builder()
@@ -55,7 +55,7 @@ public class SchoolLabApplication {
                 .name("student 3")
                 .surname("student 3 surname")
                 .age(20)
-                .group(group2)
+                .classCollection(group2)
                 .build();
 
         var student4 = Student.builder()
@@ -63,7 +63,7 @@ public class SchoolLabApplication {
                 .name("student 4")
                 .surname("student 4 surname")
                 .age(20)
-                .group(group2)
+                .classCollection(group2)
                 .build();
 
         group1.addStudent(student1);
@@ -71,21 +71,21 @@ public class SchoolLabApplication {
         group2.addStudent(student3);
         group2.addStudent(student4);
 
-        groups.add(group1);
-        groups.add(group2);
+        classCollections.add(group1);
+        classCollections.add(group2);
 
 //TASK2
         System.out.println("TASK2");
-        groups.forEach(group -> {
-            System.out.println(group.toString());
-            group.getStudents().forEach(student -> {
+        classCollections.forEach(classCollection -> {
+            System.out.println(classCollection.toString());
+            classCollection.getStudents().forEach(student -> {
                 System.out.println(student.toString());
             });
         });
 
 //TASK3
         System.out.println("TASK3");
-        var allStudents = groups.stream().flatMap(group -> group.getStudents().stream()).toList();
+        var allStudents = classCollections.stream().flatMap(classCollection -> classCollection.getStudents().stream()).toList();
         allStudents.forEach(student -> {
             System.out.println(student.toString());
         });
@@ -111,17 +111,17 @@ public class SchoolLabApplication {
         String fileName = "people.dat";
 
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName))) {
-            oos.writeObject(groups);
+            oos.writeObject(classCollections);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))) {
-            List<Group> readGroups = (List<Group>) ois.readObject();
-            readGroups.stream().forEach(
-                    group -> {
-                        System.out.println(group.toString());
-                        group.getStudents().stream().forEach(student -> {
+            List<ClassCollection> readClassCollections = (List<ClassCollection>) ois.readObject();
+            readClassCollections.stream().forEach(
+                    classCollection -> {
+                        System.out.println(classCollection.toString());
+                        classCollection.getStudents().stream().forEach(student -> {
                             System.out.println(student.toString());
                         });
                     }
@@ -131,7 +131,7 @@ public class SchoolLabApplication {
         }
 
         System.out.println("GROUPS");
-        System.out.println(groups.size());
+        System.out.println(classCollections.size());
 
 //TASK7
         System.out.println("TASK7");
@@ -139,8 +139,8 @@ public class SchoolLabApplication {
         ForkJoinPool threadPool = new ForkJoinPool(2);
         try {
             threadPool.submit(() -> {
-                groups.parallelStream().forEach(group -> {
-                    group.getStudents().forEach(student -> {
+                classCollections.parallelStream().forEach(classCollection -> {
+                    classCollection.getStudents().forEach(student -> {
                         try {
                             Thread.sleep(2000);
                         } catch (InterruptedException e) {

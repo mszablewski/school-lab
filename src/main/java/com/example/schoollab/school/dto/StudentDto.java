@@ -13,16 +13,16 @@ public class StudentDto implements Comparable<StudentDto>{
     public String name;
     public String surname;
     public Integer age;
-    public String groupName;
+    public String classCollectionName;
 
     public StudentDto() {}
 
-    public StudentDto(UUID id, String name, String surname, Integer age, String groupName) {
+    public StudentDto(UUID id, String name, String surname, Integer age, String classCollectionName) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.age = age;
-        this.groupName = groupName;
+        this.classCollectionName = classCollectionName;
     }
 
     @Override
