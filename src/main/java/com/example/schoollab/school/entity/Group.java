@@ -1,7 +1,11 @@
 package com.example.schoollab.school.entity;
 
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
 
 import java.io.Serializable;
 import java.util.List;
@@ -9,13 +13,20 @@ import java.util.UUID;
 
 @Data
 @Builder
+@Entity
+@Table(name="groups")
 public class Group implements Serializable {
+    @Id
     private UUID id;
     private String name;
     private String description;
+
+    @OneToMany(mappedBy = "profession", cascade = CascadeType.REMOVE)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private List<Student> students;
 
-    private Group() {}
+    public Group() {}
 
     public Group(UUID id, String name, String description, List<Student> students) {
         this.id = id;
