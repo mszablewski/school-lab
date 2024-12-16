@@ -2,7 +2,7 @@ package com.example.schoollab.school.service;
 
 import com.example.schoollab.school.entity.ClassCollection;
 import com.example.schoollab.school.repository.ClassCollectionRepository;
-import com.example.schoollab.school.service.ClassCollectionServiceI;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,19 +10,18 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class ClassCollectionService implements ClassCollectionServiceI {
+public class ClassCollectionService {
     private final ClassCollectionRepository classCollectionRepository;
 
+    @Autowired
     public ClassCollectionService(ClassCollectionRepository classCollectionRepository) {
         this.classCollectionRepository = classCollectionRepository;
     }
 
-    @Override
     public ClassCollection createClassCollection(ClassCollection classCollection) {
         return classCollectionRepository.save(classCollection);
     }
 
-    @Override
     public ClassCollection updateClassCollection(UUID id, ClassCollection classCollection) {
         Optional<ClassCollection> existingClassCollection = classCollectionRepository.findById(id);
         if (existingClassCollection.isPresent()) {
@@ -35,18 +34,15 @@ public class ClassCollectionService implements ClassCollectionServiceI {
         }
     }
 
-    @Override
     public void deleteClassCollection(UUID id) {
         classCollectionRepository.deleteById(id);
     }
 
-    @Override
     public ClassCollection getClassCollectionById(UUID id) {
         return classCollectionRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("ClassCollection not found with ID: " + id));
     }
 
-    @Override
     public List<ClassCollection> getAllClassCollections() {
         return classCollectionRepository.findAll();
     }

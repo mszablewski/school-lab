@@ -14,6 +14,7 @@ import java.util.UUID;
 @Data
 @Builder
 @Entity
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "class_collections")
 public class ClassCollection implements Serializable {
     @Id
@@ -21,7 +22,7 @@ public class ClassCollection implements Serializable {
     private String name;
     private String description;
 
-    @OneToMany(mappedBy = "class_collection", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "classCollection", cascade = CascadeType.REMOVE)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private List<Student> students;
