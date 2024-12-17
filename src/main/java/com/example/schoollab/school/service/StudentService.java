@@ -1,5 +1,6 @@
 package com.example.schoollab.school.service;
 
+import com.example.schoollab.school.entity.ClassCollection;
 import com.example.schoollab.school.entity.Student;
 import com.example.schoollab.school.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,5 +44,14 @@ public class StudentService {
     public Student getStudentById(UUID studentId) {
         return studentRepository.findById(studentId)
                 .orElseThrow(() -> new IllegalArgumentException("Student not found with ID: " + studentId));
+    }
+
+    public List<Student> getAllStudents() {
+        return studentRepository.findAll();
+    }
+
+
+    public List<Student> getAllStudentsByClassCollectionName(String classCollectionName) {
+        return studentRepository.findByClassCollectionName(classCollectionName);
     }
 }
