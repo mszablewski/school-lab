@@ -1,0 +1,51 @@
+### Create or Update a Student
+PUT http://localhost:8080/api/students/60af4884-8ce1-4917-ae61-cf4f01cb69ab
+Content-Type: application/json
+
+{
+  "name": "John",
+  "surname": "Doe",
+  "age": 18,
+  "classCollectionId": "123e4567-e89b-12d3-a456-426614174000"
+}
+
+###
+
+### Get a Student by ID
+GET http://localhost:8080/api/students/60af4884-8ce1-4917-ae61-cf4f01cb69ab
+
+###
+
+### Delete a Student by ID
+DELETE http://localhost:8080/api/students/60af4884-8ce1-4917-ae61-cf4f01cb69ab
+
+###
+
+### Get All Students
+GET http://localhost:8080/api/students
+
+###
+
+### Create or Update a Class Collection
+PUT http://localhost:8080/api/class-collections/123e4567-e89b-12d3-a456-426614174000
+Content-Type: application/json
+
+{
+  "name": "Math 101",
+  "description": "Basic Mathematics for Beginners"
+}
+
+###
+
+### Get a Class Collection by ID
+GET http://localhost:8080/api/class-collections/123e4567-e89b-12d3-a456-426614174000
+
+###
+
+### Delete a Class Collection by ID
+DELETE http://localhost:8080/api/class-collections/123e4567-e89b-12d3-a456-426614174000
+
+###
+
+### Get All Class Collections
+GET http://localhost:8080/api/class-collections

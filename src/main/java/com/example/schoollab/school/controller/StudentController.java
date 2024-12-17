@@ -8,13 +8,14 @@ import com.example.schoollab.school.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-@RestController
+@Controller
 @RequestMapping("/api/students")
 public class StudentController {
     private final StudentService studentService;
@@ -26,16 +27,40 @@ public class StudentController {
         this.classCollectionService = classCollectionService;
     }
 
-    @PostMapping
-    public ResponseEntity<StudentDto> createStudent(@RequestBody StudentCreateDto studentCreateDto) {
+    @PutMapping("/{studentId}")
+    public ResponseEntity<StudentDto> createOrUpdateStudent(
+            @PathVariable UUID studentId,
+            @RequestBody StudentCreateDto studentCreateDto) {
+        var classCollection = classCollectionService.getClassCollectionById(studentCreateDto.getClassCollectionId());
+
+        if (classCollection == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+
+        // Check if student exists
+        boolean exists = studentService.getStudentById(studentId) != null;
+
+        // Build Student entity
         var student = Student.builder()
+                .id(studentId)
                 .name(studentCreateDto.getName())
                 .surname(studentCreateDto.getSurname())
                 .age(studentCreateDto.getAge())
-                .classCollection(classCollectionService.getClassCollectionById(studentCreateDto.getClassCollectionId()))
+                .classCollection(classCollection)
                 .build();
-        Student createdStudent = studentService.createStudent(student);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdStudent.toStudentDto());
+
+        Student savedStudent;
+        HttpStatus status;
+
+        if (exists) {
+            savedStudent = studentService.updateStudent(studentId, student);
+            status = HttpStatus.OK;
+        } else {
+            savedStudent = studentService.createStudent(student);
+            status = HttpStatus.CREATED;
+        }
+
+        return ResponseEntity.status(status).body(savedStudent.toStudentDto());
     }
 
     @GetMapping("/{studentId}")
