@@ -1,16 +1,13 @@
 package com.example.schoollab.school.dto;
 
-import lombok.Builder;
 import lombok.Data;
 
 import java.util.UUID;
 
 @Data
-@Builder
-public class StudentDto {
-    private UUID id;
+public class StudentCreateDto {
     private String name;
     private String surname;
     private Integer age;
-    private String classCollectionName;
+    private UUID classCollectionId;
 }
