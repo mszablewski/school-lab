@@ -36,6 +36,7 @@ public class InitializeData implements InitializingBean {
             ClassCollection scienceClass = new ClassCollection(
                     UUID.randomUUID(), "Science Class", "Class focusing on science", new ArrayList<>());
 
+            System.out.println(scienceClass);
             classCollectionService.createClassCollection(mathClass);
             classCollectionService.createClassCollection(scienceClass);
 
@@ -55,12 +56,9 @@ public class InitializeData implements InitializingBean {
             scienceClass.getStudents().add(student4);
 
             classCollectionService.updateClassCollection(mathClass.getId(), mathClass);
-            classCollectionService.updateClassCollection(scienceClass.getId(), mathClass);
+            classCollectionService.updateClassCollection(scienceClass.getId(), scienceClass);
 
             System.out.println("Database initialized with example data.");
-            System.out.println(studentService.getAllStudents());
-            System.out.println(classCollectionService.getAllClassCollections());
-            System.out.println(studentService.getAllStudentsByClassCollectionName("Math Class"));
         }
     }
 }
