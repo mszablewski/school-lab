@@ -31,16 +31,15 @@ public class StudentController {
     public ResponseEntity<StudentDto> createOrUpdateStudent(
             @PathVariable UUID studentId,
             @RequestBody StudentCreateDto studentCreateDto) {
+
         var classCollection = classCollectionService.getClassCollectionById(studentCreateDto.getClassCollectionId());
 
         if (classCollection == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
 
-        // Check if student exists
         boolean exists = studentService.getStudentById(studentId) != null;
 
-        // Build Student entity
         var student = Student.builder()
                 .id(studentId)
                 .name(studentCreateDto.getName())
