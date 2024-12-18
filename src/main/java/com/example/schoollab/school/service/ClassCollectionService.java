@@ -39,8 +39,7 @@ public class ClassCollectionService {
     }
 
     public ClassCollection getClassCollectionById(UUID id) {
-        return classCollectionRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("ClassCollection not found with ID: " + id));
+        return classCollectionRepository.findById(id).orElse(null);
     }
 
     public List<ClassCollection> getAllClassCollections() {

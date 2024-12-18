@@ -30,6 +30,8 @@ public class ClassCollectionController {
             @RequestBody ClassCollectionCreateDto classCollectionCreateDto) {
         boolean exists = classCollectionService.getClassCollectionById(classCollectionId) != null;
 
+        System.out.println("Exists: " + exists);
+
         var classCollection = ClassCollection.builder()
                 .id(classCollectionId)
                 .name(classCollectionCreateDto.getName())

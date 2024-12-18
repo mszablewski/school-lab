@@ -43,7 +43,7 @@ public class StudentService {
 
     public Student getStudentById(UUID studentId) {
         return studentRepository.findById(studentId)
-                .orElseThrow(() -> new IllegalArgumentException("Student not found with ID: " + studentId));
+                .orElse(null);
     }
 
     public List<Student> getAllStudents() {
