@@ -55,7 +55,7 @@ public class InitializeData implements InitializingBean {
             scienceClass.getStudents().add(student4);
 
             classCollectionService.updateClassCollection(mathClass.getId(), mathClass);
-            classCollectionService.updateClassCollection(scienceClass.getId(), mathClass);
+            classCollectionService.updateClassCollection(scienceClass.getId(), scienceClass);
 
             System.out.println("Database initialized with example data.");
             System.out.println(studentService.getAllStudents());
