@@ -1,2 +1,1 @@
-Internet Services Architectures
-Laboratory tasks
+Simple microservices based web application written in java
